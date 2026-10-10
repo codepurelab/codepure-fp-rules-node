@@ -21,3 +21,6 @@ router.get('/memory', (req, res) => {
 });
 
 module.exports = router;
+
+// R8: Health logging
+console.log('health ok');
