@@ -3,11 +3,11 @@ const router = express.Router();
 const mysql = require('mysql');
 const db = require('../config/database');
 
-// REAL VULN: SQL injection via string concatenation
+// FIXED: SQL injection via parameterized query
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
-  const query = "SELECT * FROM users WHERE username = '" + username + "' AND password = '" + password + "'";
-  db.query(query, (err, results) => {
+  const query = "SELECT * FROM users WHERE username = ? AND password = ?";
+  db.query(query, [username, password], (err, results) => {
     if (err) return res.status(500).json({ error: 'DB error' });
     if (results.length > 0) {
       res.json({ token: 'jwt-token-here', user: results[0] });
@@ -17,11 +17,11 @@ router.post('/login', (req, res) => {
   });
 });
 
-// REAL VULN: SQL injection in search
+// FIXED: SQL injection in search - using parameterized query
 router.get('/users', (req, res) => {
   const search = req.query.q;
-  const query = "SELECT id, username, email FROM users WHERE username LIKE '%" + search + "%'";
-  db.query(query, (err, results) => {
+  const query = "SELECT id, username, email FROM users WHERE username LIKE ?";
+  db.query(query, ['%' + search + '%'], (err, results) => {
     if (err) return res.status(500).json({ error: 'DB error' });
     res.json(results);
   });
