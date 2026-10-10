@@ -1,0 +1,24 @@
+{
+  "name": "codepure-fp-rules-node",
+  "version": "1.0.0",
+  "description": "FP rules testing project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "4.16.0",
+    "mysql": "2.14.0",
+    "bcrypt": "5.1.0",
+    "lodash": "4.17.11",
+    "minimist": "1.2.0",
+    "ejs": "2.7.1",
+    "node-serialize": "0.0.4",
+    "helmet": "3.15.0",
+    "jsonwebtoken": "8.3.0"
+  },
+  "devDependencies": {
+    "jest": "29.0.0"
+  }
+}
