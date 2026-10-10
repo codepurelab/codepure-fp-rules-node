@@ -3,9 +3,14 @@ const router = express.Router();
 const path = require('path');
 const fs = require('fs');
 
-// REAL VULN: Reflected XSS — user input rendered directly
+// FIXED: XSS — escape user input before rendering
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+
 router.get('/search', (req, res) => {
-  const term = req.query.q;
+  const term = escapeHtml(req.query.q);
   res.send(`<html><body><h1>Search results for: ${term}</h1></body></html>`);
 });
 
