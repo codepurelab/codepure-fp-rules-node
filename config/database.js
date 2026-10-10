@@ -1,12 +1,12 @@
 const mysql = require('mysql');
 
-// REAL VULN: Hardcoded production credentials
+// FIXED: Use environment variable instead of hardcoded password
 const connection = mysql.createConnection({
-  host: 'db.production.internal',
-  user: 'admin',
-  password: 'Pr0duction_DB_Pass_2026',
-  database: 'ecommerce_prod',
-  port: 3306
+  host: process.env.DB_HOST || 'db.production.internal',
+  user: process.env.DB_USER || 'admin',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'ecommerce_prod',
+  port: parseInt(process.env.DB_PORT) || 3306
 });
 
 // REAL VULN: Another hardcoded secret
