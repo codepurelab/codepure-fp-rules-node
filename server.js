@@ -1,3 +1,4 @@
+// v1.1 - logging enabled
 const express = require('express');
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
